@@ -31,12 +31,10 @@ NO* push (NO* *lista, int tipo, int ch) {
         atual->prox = resp;
     }
 
-    if (tipo == 1) {
+    if (tipo == 1)
         resp -> chave = ch;
-        printf("%i", resp -> chave);
-    } else if (tipo == 2) {
+    else if (tipo == 2)
         resp -> sublista = NULL;
-    }
 
     return resp;
 }
@@ -55,7 +53,13 @@ NO* listarChaves(NO* entrada) {
 }
 
 
-
+void exibir(NO* p) {
+    while (p) {
+        if (p->tipo == 1) printf("%i", p->chave);
+        else exibir(p->sublista);
+        p = p-> prox;
+    }
+}
 
 
 //---------------------------------------------------------
@@ -77,6 +81,10 @@ int main() {
 	push(&teste, 1, 1);
 	NO* sub1 = push(&teste, 2, 5);
 	push(&sub1, 1, 6);
+	push(&sub1, 1, 6);
+	push(&teste, 1, 3);
+
+	exibir(teste);
 	// e aqui vc deveria percorrer a lista teste para ver se ficou correta etc.
 }
 
