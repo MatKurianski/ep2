@@ -55,7 +55,7 @@ NO* listarChaves(NO* entrada) {
 
 void exibir(NO* p) {
     while (p) {
-        if (p->tipo == 1) printf("%i", p->chave);
+        if (p->tipo == 1) printf("%i ", p->chave);
         else exibir(p->sublista);
         p = p-> prox;
     }
@@ -77,15 +77,29 @@ int main() {
 
 	// o EP sera testado com chamadas deste tipo
 	NO* teste = NULL;
-	push(&teste, 1, 5);
 	push(&teste, 1, 1);
-	NO* sub1 = push(&teste, 2, 5);
-	push(&sub1, 1, 6);
-	push(&sub1, 1, 6);
-	push(&teste, 1, 3);
+	NO* sub1 = push(&teste, 2, -1);
+        push(&sub1, 1, 5);
+        NO* sub2 = push(&sub1, 2, -1);
+            push(&sub2, 1, 8);
+    push(&teste, 1, 2);
+    NO* sub3 = push(&teste, 2, -1);
+        push(&sub3, 1, 6);
+        NO* sub4 = push(&sub3, 2, -1);
+            NO* sub5 = push(&sub4, 2, -1);
+                push(&sub5, 1, 9);
+                NO* sub6 = push(&sub5, 2, -1);
+                push(&sub6, 1, 10);
+    push(&teste, 1, 3);
+    NO* sub7 = push(&teste, 2, -1);
+        push(&sub7, 1, 7);
+    push(&teste, 1, 4);
 
 	exibir(teste);
+	//teste = listarChaves(p);
+
 	// e aqui vc deveria percorrer a lista teste para ver se ficou correta etc.
 }
 
 // por favor nao inclua nenhum código abaixo da função main()
+
