@@ -6,6 +6,8 @@
 *.layout
 *.depend
 *.cbp
+a.exe
+run.bat
 # generated directories
 bin/
 obj/
