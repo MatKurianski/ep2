@@ -50,20 +50,17 @@ NO* duplicate (NO* p) {
     return resp;
 }
 
-//NO* getUltLin(NO* atual) {
-//    NO* ult = NULL;
-//    while (atual) {
-//        if (atual->tipo == 1) ult = atual;
-//        atual = atual->prox;
-//    }
-//    return ult;
-//}
+NO* getUltLin(NO* atual) {
+    NO* ult = NULL;
+    while (atual) {
+        if (atual->tipo == 1) ult = atual;
+        atual = atual->prox;
+    }
+    return ult;
+}
 
 // o EP consiste em implementar esta funcao
 NO* listarChaves(NO* entrada) {
-//    NO* resp = duplicate(entrada);
-//    NO* atual = entrada->prox;
-//    NO* inicio = resp;
     NO* atual = entrada;
     NO* resp = NULL;
     NO* inicio = NULL;
@@ -80,30 +77,27 @@ NO* listarChaves(NO* entrada) {
         atual = atual->prox;
     }
 
-//    NO* ult = getUltLin(inicio);
-//    atual = entrada;
-//
-//    int contador = 0;
+    NO* ult = getUltLin(inicio);
+    atual = entrada;
 
+    int contador = 0;
 
-
-//    NO* resp = NULL;
-//
-//    // sua rotina aqui (o exemplo cria apenas um elemento de chave 1)
-//    resp = (NO*) malloc(sizeof(NO));
-//    resp->chave = 1;
-//    resp->prox = NULL;
-
+    while(atual) {
+        if (atual->tipo == 2) {
+            contador++;
+            ult->prox = duplicate(atual->sublista);
+            while (ult->prox) ult = ult->prox;
+        }
+        atual = atual->prox;
+    }
+    if (contador > 0) inicio = listarChaves(inicio);
     return inicio;
-
 }
 
 void exibir(NO* p) {
     while (p) {
         if (p->tipo == 1) printf("%i ", p->chave);
-        else {
-            exibir(p->sublista);
-        }
+        else exibir(p->sublista);
         p = p-> prox;
     }
 }
@@ -119,10 +113,6 @@ int main() {
 
 	NO* p = NULL;
 
-	// aqui vc pode incluir codigo para inserir elementos
-	// de teste na sua lista apontada por p
-
-	// o EP sera testado com chamadas deste tipo
 	NO* teste = NULL;
 	push(&teste, 1, 1);
 	NO* sub1 = push(&teste, 2, -1);
@@ -141,14 +131,9 @@ int main() {
         push(&sub7->sublista, 1, 7);
     push(&teste, 1, 4);
 
-    NO* teste2 = duplicate(teste->prox->prox->prox->sublista);
-    exibir(teste2);
+    exibir(teste);
     printf("\n");
-    //exibir(teste2);
-    //exibir(teste);
-	//teste = listarChaves(p);
-
-	// e aqui vc deveria percorrer a lista teste para ver se ficou correta etc.
+    exibir(listarChaves(teste));
 }
 
 // por favor nao inclua nenhum código abaixo da função main()
