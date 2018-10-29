@@ -69,15 +69,12 @@ NO* duplicate (NO* p) {
     return resp;
 }
 
-NO* getUltLin(NO* atual, bool requireCh) {
+NO* getUltLin(NO* atual) {
     NO* ult = NULL;
     while (atual) {
-        if (requireCh)
-            if(atual->tipo == 1) ult = atual;
-        else ult = atual;
+        if(atual->tipo == 1) ult = atual;
         atual = atual->prox;
     }
-    if(ult) printf("%i", ult->tipo);
     return ult;
 }
 
@@ -85,9 +82,9 @@ void exibir(NO* p) {
     while (p) {
         if (p->tipo == 1) printf("%i ", p->chave);
         else {
-            printf("[sub] ");
+            printf("[I] ");
             exibir(p->sublista);
-            printf("[fim_sub]");
+            printf("[F] ");
         }
         p = p-> prox;
     }
@@ -95,7 +92,6 @@ void exibir(NO* p) {
 
 // o EP consiste em implementar esta funcao
 NO* listarChaves(NO* entrada) {
-    //printf("Chamada!\n");
     NO* atual = entrada;
     NO* resp = NULL;
     NO* inicio = NULL;
@@ -112,9 +108,7 @@ NO* listarChaves(NO* entrada) {
         atual = atual->prox;
     }
 
-    NO* ult = getUltLin(inicio, true);
-
-
+    NO* ult = getUltLin(inicio);
     atual = entrada;
 
     if (ult == NULL) {
@@ -127,7 +121,6 @@ NO* listarChaves(NO* entrada) {
             aux = aux->prox;
         }
     }
-
 
     int contador = 0;
 
@@ -144,46 +137,20 @@ NO* listarChaves(NO* entrada) {
 }
 
 
-
-
 //---------------------------------------------------------
 // use main() para fazer chamadas de teste ao seu programa
 //---------------------------------------------------------
 
 
-
 int main() {
-
-	NO* p = NULL;
-
-	NO* teste = NULL;
-	push(&teste, 1, 1);
-	NO* sub1 = push(&teste, 2, -1);
-        push(&sub1->sublista, 1, 5);
-        NO* sub2 = push(&sub1->sublista, 2, -1);
-            push(&sub2->sublista, 1, 8);
-    push(&teste, 1, 2);
-    NO* sub3 = push(&teste, 2, -1);
-        push(&sub3->sublista, 1, 6);
-        NO* sub4 = push(&sub3->sublista, 2, -1);
-            NO* sub5 = push(&sub4->sublista, 2, -1);
-                push(&sub5, 1, 9);
-                push(&sub5->sublista, 1, 10);
-    push(&teste, 1, 3);
-    NO* sub7 = push(&teste, 2, -1);
-        push(&sub7->sublista, 1, 7);
-    push(&teste, 1, 4);
-    NO* debug = push(&teste, 2, 5);
-    push(&debug->sublista, 1, 12);
-
-    int a[] = {B, 5 ,E, B, 5, E, B, 5, E, B, 5, E};
+    int a[] = {1, B, 5, B, 8, E, E, 2, B, 6, B, B, 10, E, 9, E, E, 3, B, 7, E, 4};
 
     size_t n = sizeof(a)/sizeof(a[0]);
-    NO* teste3 = create(a, 0, n);
+    NO* arranjo = create(a, 0, n);
 
-    exibir(teste3);
+    exibir(arranjo);
     printf("\n");
-    exibir(listarChaves(teste3));
+    exibir(listarChaves(arranjo));
 }
 
 // por favor nao inclua nenhum código abaixo da função main()
