@@ -77,6 +77,7 @@ NO* listarChaves(NO* entrada) {
         atual = atual->prox;
     }
 
+    if (inicio == NULL) inicio = entrada;
     NO* ult = getUltLin(inicio);
     atual = entrada;
 
