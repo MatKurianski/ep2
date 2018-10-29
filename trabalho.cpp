@@ -60,8 +60,10 @@ NO* listarChaves(NO* entrada) {
 
     NO* ult = getUltLin(inicio);
     atual = entrada;
+    int contador = 0;
 
     if (inicio == NULL) {
+        contador++;
         NO* aux = NULL;
         while (atual) {
             if (!inicio) {
@@ -75,8 +77,6 @@ NO* listarChaves(NO* entrada) {
             aux = aux->prox;
         }
     }
-
-    int contador = 0;
 
     while(atual) {
         if (atual->tipo == 2) {
@@ -97,7 +97,7 @@ NO* listarChaves(NO* entrada) {
 
 
 int main() {
-    int a[] = {1, 2, B ,E, B, 8, E, B, E, 3};
+    int a[] = {B, B, B, B, B, 1, E, E, E, E, E};
 
     size_t n = sizeof(a)/sizeof(a[0]);
     NO* arranjo = create(a, 0, n);
