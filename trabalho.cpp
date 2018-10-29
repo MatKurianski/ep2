@@ -53,7 +53,7 @@ NO* duplicate (NO* p) {
 NO* getUltLin(NO* atual) {
     NO* ult = NULL;
     while (atual) {
-        if (atual->tipo == 1) ult = atual;
+        ult = atual;
         atual = atual->prox;
     }
     return ult;
