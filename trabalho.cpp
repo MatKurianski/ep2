@@ -44,9 +44,9 @@ NO* duplicate (NO* p) {
         resp = (NO*) malloc(sizeof(NO));
         resp->tipo = p->tipo;
         if (p->tipo == 1) resp->chave = p->chave;
-        else resp -> sublista = duplicate(p->sublista);
+        else resp ->sublista = duplicate(p->sublista);
+        resp->prox = duplicate(p->prox);
     }
-    resp = resp->prox;
     return resp;
 }
 
@@ -101,7 +101,9 @@ NO* listarChaves(NO* entrada) {
 void exibir(NO* p) {
     while (p) {
         if (p->tipo == 1) printf("%i ", p->chave);
-        else exibir(p->sublista);
+        else {
+            exibir(p->sublista);
+        }
         p = p-> prox;
     }
 }
@@ -125,7 +127,7 @@ int main() {
 	push(&teste, 1, 1);
 	NO* sub1 = push(&teste, 2, -1);
         push(&sub1->sublista, 1, 5);
-        NO* sub2 = push(&sub1, 2, -1);
+        NO* sub2 = push(&sub1->sublista, 2, -1);
             push(&sub2->sublista, 1, 8);
     push(&teste, 1, 2);
     NO* sub3 = push(&teste, 2, -1);
@@ -139,9 +141,10 @@ int main() {
         push(&sub7->sublista, 1, 7);
     push(&teste, 1, 4);
 
-    NO* teste2 = duplicate(teste);
-    exibir(teste);
+    NO* teste2 = duplicate(teste->prox->prox->prox->sublista);
+    exibir(teste2);
     printf("\n");
+    //exibir(teste2);
     //exibir(teste);
 	//teste = listarChaves(p);
 
