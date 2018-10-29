@@ -35,23 +35,68 @@ NO* push (NO* *lista, int tipo, int ch) {
         resp -> chave = ch;
     else if (tipo == 2)
         resp -> sublista = NULL;
-
     return resp;
 }
+
+NO* duplicate (NO* p) {
+    NO* resp = NULL;
+    if (p) {
+        resp = (NO*) malloc(sizeof(NO));
+        resp->tipo = p->tipo;
+        if (p->tipo == 1) resp->chave = p->chave;
+        else resp -> sublista = duplicate(p->sublista);
+    }
+    resp = resp->prox;
+    return resp;
+}
+
+//NO* getUltLin(NO* atual) {
+//    NO* ult = NULL;
+//    while (atual) {
+//        if (atual->tipo == 1) ult = atual;
+//        atual = atual->prox;
+//    }
+//    return ult;
+//}
 
 // o EP consiste em implementar esta funcao
 NO* listarChaves(NO* entrada) {
+//    NO* resp = duplicate(entrada);
+//    NO* atual = entrada->prox;
+//    NO* inicio = resp;
+    NO* atual = entrada;
     NO* resp = NULL;
+    NO* inicio = NULL;
+    while (atual) {
+        if (atual->tipo == 1) {
+            if (!resp) {
+                resp = duplicate(atual);
+                inicio = resp;
+            } else {
+                resp -> prox = duplicate(atual);
+                resp = resp -> prox;
+            }
+        }
+        atual = atual->prox;
+    }
 
-    // sua rotina aqui (o exemplo cria apenas um elemento de chave 1)
-    resp = (NO*) malloc(sizeof(NO));
-    resp->chave = 1;
-    resp->prox = NULL;
+//    NO* ult = getUltLin(inicio);
+//    atual = entrada;
+//
+//    int contador = 0;
 
-    return resp;
+
+
+//    NO* resp = NULL;
+//
+//    // sua rotina aqui (o exemplo cria apenas um elemento de chave 1)
+//    resp = (NO*) malloc(sizeof(NO));
+//    resp->chave = 1;
+//    resp->prox = NULL;
+
+    return inicio;
 
 }
-
 
 void exibir(NO* p) {
     while (p) {
@@ -79,23 +124,25 @@ int main() {
 	NO* teste = NULL;
 	push(&teste, 1, 1);
 	NO* sub1 = push(&teste, 2, -1);
-        push(&sub1, 1, 5);
+        push(&sub1->sublista, 1, 5);
         NO* sub2 = push(&sub1, 2, -1);
-            push(&sub2, 1, 8);
+            push(&sub2->sublista, 1, 8);
     push(&teste, 1, 2);
     NO* sub3 = push(&teste, 2, -1);
-        push(&sub3, 1, 6);
-        NO* sub4 = push(&sub3, 2, -1);
-            NO* sub5 = push(&sub4, 2, -1);
+        push(&sub3->sublista, 1, 6);
+        NO* sub4 = push(&sub3->sublista, 2, -1);
+            NO* sub5 = push(&sub4->sublista, 2, -1);
                 push(&sub5, 1, 9);
-                NO* sub6 = push(&sub5, 2, -1);
-                push(&sub6, 1, 10);
+                push(&sub5->sublista, 1, 10);
     push(&teste, 1, 3);
     NO* sub7 = push(&teste, 2, -1);
-        push(&sub7, 1, 7);
+        push(&sub7->sublista, 1, 7);
     push(&teste, 1, 4);
 
-	exibir(teste);
+    NO* teste2 = duplicate(teste);
+    exibir(teste);
+    printf("\n");
+    //exibir(teste);
 	//teste = listarChaves(p);
 
 	// e aqui vc deveria percorrer a lista teste para ver se ficou correta etc.
