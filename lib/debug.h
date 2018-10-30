@@ -1,12 +1,6 @@
 #define B -1
 #define E -2
 
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <malloc.h>
-#include <string.h>
-
 NO* push (NO* *lista, int tipo, int ch) {
     NO* resp = (NO*) malloc(sizeof(NO));
     resp -> prox = NULL;

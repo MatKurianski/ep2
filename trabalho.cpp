@@ -1,5 +1,5 @@
 #include "ep.h"
-#include "debug.h"
+#include "lib/debug.h"
 
 // ######### ESCREVA O NUMERO DO SEU GRUPO AQUI, CONFORME LINK NA ESPECIFICACAO DO EP
 // ignore os warning to compilador, se houver
@@ -105,7 +105,7 @@ NO* listarChaves(NO* entrada) {
 
 
 int main() {
-    int a[] = {1,2,3};
+    int a[] = {B, 3, E, 1, 2, 3, B, 5, 7, 8, E, B, 1, E, 11, B, 5, E};
 
     size_t n = sizeof(a)/sizeof(a[0]);
     NO* arranjo = nodify(a, n);
