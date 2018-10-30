@@ -38,7 +38,7 @@ NO* create(int* chs, int j, int n) {
     return p;
 }
 
-NO* nodify(int* chs, int n) {
+NO* nodefy(int* chs, int n) {
   int b = 0;
   int e = 0;
   int i;
