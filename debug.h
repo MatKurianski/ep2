@@ -44,6 +44,24 @@ NO* create(int* chs, int j, int n) {
     return p;
 }
 
+NO* nodify(int* chs, int n) {
+  int b = 0;
+  int e = 0;
+  int i;
+  for (i = 0; i < n; i++) {
+    if (chs[i] == -1) b++;
+    if (chs[i] == -2) e++;
+  }
+  if(b != e) {
+    NO* p = (NO*) malloc(sizeof(NO));
+    p->tipo = 1;
+    p->chave = -1;
+    p->prox = NULL;
+    return p;
+  }
+  return create(chs, 0, n);
+}
+
 void exibir(NO* p) {
     while (p) {
         if (p->tipo == 1) printf("%i ", p->chave);

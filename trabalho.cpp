@@ -105,10 +105,10 @@ NO* listarChaves(NO* entrada) {
 
 
 int main() {
-    int a[] = {1, 2, 5, B, B, B,7, E, 8, E, 9};
+    int a[] = {1,2,3};
 
     size_t n = sizeof(a)/sizeof(a[0]);
-    NO* arranjo = create(a, 0, n);
+    NO* arranjo = nodify(a, n);
 
     exibir(arranjo);
     printf("\n");
