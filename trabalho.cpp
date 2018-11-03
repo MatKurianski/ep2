@@ -4,19 +4,19 @@
 // ######### ESCREVA O NUMERO DO SEU GRUPO AQUI, CONFORME LINK NA ESPECIFICACAO DO EP
 // ignore os warning to compilador, se houver
 char* grupo() {
-    return("00");
+    return("09");
 }
 
 // ######### ESCREVA O NROUSP DO PRIMEIRO INTEGRANTE AQUI
 // ignore os warning to compilador, se houver
 char* nroUSP1() {
-    return("0000000");
+    return("10687541");
 }
 
 // ######### ESCREVA O NROUSP DO SEGUNDO INTEGRANTE AQUI (OU DEIXE COM ZERO)
 // ignore os warning to compilador, se houver
 char* nroUSP2() {
-    return("0000000");
+    return("10687882");
 }
 
 NO* duplicate (NO* p) {
@@ -105,7 +105,7 @@ NO* listarChaves(NO* entrada) {
 
 
 int main() {
-    int a[] = {B, 3, E, 1, 2, 3, B, 5, 7, 8, E, B, 1, E, 11, B, 5, E};
+    int a[] = {1, B, 5, B, 8, E, E, 2, B, 6, B, B, 10, E, 9, E, E, 3, B, 7, E, 4};
 
     size_t n = sizeof(a)/sizeof(a[0]);
     NO* arranjo = nodefy(a, n);
