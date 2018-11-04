@@ -14,24 +14,20 @@ NO* push (NO* *lista, int tipo, int ch) {
         atual->prox = resp;
     }
 
-    if (tipo == 1)
-        resp -> chave = ch;
-    else if (tipo == 2)
-        resp -> sublista = NULL;
+    if (tipo == 1) resp -> chave = ch;
+    else if (tipo == 2) resp -> sublista = NULL;
     return resp;
 }
 
-NO* create(int* chs, int j, int n) {
+NO* create(int* chs, int i, int n) {
     NO* p = NULL;
-    int i = j;
     for (i; i < n; i++) {
-        //printf("%i\n", chs[i]);
         if (chs[i] == -1) {
             NO* psub = push(&p, 2, -10);
             psub->sublista = create(chs, i+1, n);
             while (chs[i] != -2) i++;
             chs[i] = NULL;
-        } else if (chs[i] == -2 && j != 0) {
+        } else if (chs[i] == -2 && i != 0) {
             return p;
         } else push(&p, 1, chs[i]);
     }
