@@ -54,12 +54,14 @@ NO* nodefy(int* chs, int n) {
 
 void exibir(NO* p) {
     while (p) {
-        if (p->tipo == 1) printf("%i ", p->chave);
+        if (p->tipo == 1) 
+          printf("%i", p->chave);
         else {
-            printf("[I] ");
-            exibir(p->sublista);
-            printf("[F] ");
+          printf("( ");
+          exibir(p->sublista);
+          printf(" )");
         }
+        if (p->prox) printf(", ");
         p = p-> prox;
     }
 }
