@@ -20,111 +20,82 @@ char* nroUSP2() {
     return("10687882");
 }
 
-void destruirLista(NO* p) {
-    NO* aux;
-    while (p) {
-        aux = p;
-        if(p->tipo == 2) destruirLista(p->sublista);
-        p = p-> prox;
-        free(aux);
-    }
-}
-
-NO* copiarTipo1 (NO* p) {
-    NO* resp = NULL;
-    if (p) {
-        if (p->tipo == 1) {
-            resp = (NO*) malloc(sizeof(NO));
-            resp->tipo = p->tipo;
-            resp->chave = p->chave;
-            resp->prox = NULL;
-        }
-    }
-    return resp;
-}
-
-NO* copiarTipo2 (NO* p) {
-    NO* resp = NULL;
-    if (p) {
-        resp = (NO*) malloc(sizeof(NO));
-        resp->tipo = p->tipo;
-        if (p->tipo == 1) resp = copiarTipo1(p);
-        else resp ->sublista = copiarTipo2(p->sublista);
-        resp->prox = copiarTipo2(p->prox);
-    }
-    return resp;
+NO* copiarListaGen(NO* p) {
+  NO* novo;
+  NO* abaixo;
+  NO* dir;
+  int tipo;
+  novo = NULL;
+  if (p) {
+    tipo = p->tipo;
+    if( tipo == 2)
+      abaixo = copiarListaGen(p->sublista);
+      dir = copiarListaGen(p->prox);
+      novo = (NO *) malloc(sizeof(NO));
+      novo->tipo = tipo;
+      novo->prox = dir;
+    if( tipo == 1)
+      novo->chave = p->chave;
+    else
+      novo->sublista = abaixo;
+  }
+  return(novo);
 }
 
 NO* getUltLin(NO* atual) {
-    NO* ult = NULL;
-    while (atual) {
-        if(atual->tipo == 1) ult = atual;
-        atual = atual->prox;
-    }
+    NO* ult = NULL; 
+    while (atual->prox) atual = atual->prox;
+    ult = atual;
     return ult;
+}
+
+NO* reconfigurarLista(NO* entrada) {
+  bool fim = false;
+  NO* atual = entrada;
+  NO* ult = getUltLin(entrada);
+  
+  while(atual) {
+    if (atual->tipo == 2) {
+      if (atual->sublista) {
+        ult->prox = atual->sublista;
+        atual->sublista = NULL;
+        ult = getUltLin(ult);
+      }
+    }
+    atual = atual->prox;
+  }
+
+  atual = entrada;
+  NO* inicio = NULL;
+  NO* antTipo1 = NULL;
+  NO* aux;
+
+  while(atual) {
+    if (atual->tipo == 2) {
+      aux = atual;
+      atual = atual->prox;
+      free(aux);
+      continue;
+    } else {
+      if (!antTipo1) {
+        antTipo1 = atual;
+        inicio = antTipo1;
+      } else {
+        antTipo1->prox = atual;
+        antTipo1 = antTipo1->prox;
+      }
+    }
+    atual = atual->prox;
+  }
+
+  if(antTipo1) antTipo1->prox = NULL;
+  return inicio;
 }
 
 // o EP consiste em implementar esta funcao
 NO* listarChaves(NO* entrada) {
-
-    NO* atual = entrada;
-    NO* resp = NULL;
-    NO* inicio = NULL;
-
-    while (atual) {
-        if (atual->tipo == 1) {
-            if (!resp) {
-                resp = copiarTipo1(atual);
-                inicio = resp;
-            } else {
-                resp -> prox = copiarTipo1(atual);
-                resp = resp -> prox;
-            }
-        }
-        atual = atual->prox;
-    }
-
-    atual = entrada;
-    int contador = 0;
-
-    if (inicio == NULL) {
-        contador++;
-        NO* aux = NULL;
-        while (atual) {
-            if (!inicio) {
-                inicio = copiarTipo2(atual->sublista);
-                aux = inicio;
-                if (!aux) {
-                    atual = atual->prox;
-                    continue;
-                }
-                while(aux->prox) aux = aux->prox;
-                atual = atual->prox;
-                continue;
-            }
-            aux->prox = copiarTipo2(atual->sublista);
-            atual = atual->prox;
-            while(aux->prox) aux = aux->prox;
-        }
-    }
-
-    if (!inicio) return NULL;
-
-    NO* ult = getUltLin(inicio);
-    while(atual) {
-        if (atual->tipo == 2) {
-            ult->prox = copiarTipo2(atual->sublista);
-            contador++;
-            while (ult->prox) ult = ult->prox;
-        }
-        atual = atual->prox;
-    }
-    if (contador > 0) {
-        NO* aux = inicio;
-        inicio = listarChaves(inicio);
-        destruirLista(aux);
-    }
-    return inicio;
+  NO* nova = copiarListaGen(entrada);
+  return reconfigurarLista(nova);
 }
 
 
