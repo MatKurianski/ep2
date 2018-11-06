@@ -50,7 +50,6 @@ NO* getUltLin(NO* atual) {
 }
 
 NO* reconfigurarLista(NO* entrada) {
-  bool fim = false;
   NO* atual = entrada;
   NO* ult = getUltLin(entrada);
   
