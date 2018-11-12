@@ -1,6 +1,5 @@
 #include "ep.h"
 #include "lib/debug.h"
-#include <time.h>
 
 // ######### ESCREVA O NUMERO DO SEU GRUPO AQUI, CONFORME LINK NA ESPECIFICACAO DO EP
 // ignore os warning to compilador, se houver
